@@ -21,6 +21,7 @@ from . import config
 
 _process: subprocess.Popen | None = None
 _log_file: Path | None = None
+_loaded_profile: str | None = None
 
 
 def server_exe() -> Path:
@@ -43,10 +44,13 @@ def _pick_args(profile: str) -> list[str]:
 
 
 def ensure_server(profile: str = config.DEFAULT_PROFILE) -> None:
-    """确保 llama-server 已启动且模型加载完成（幂等）。"""
-    global _process, _log_file
-    if _process is not None and _process.poll() is None and health_check():
+    """确保 llama-server 已启动且模型加载完成（幂等；档位变化时自动重启）。"""
+    global _process, _log_file, _loaded_profile
+    if (_process is not None and _process.poll() is None
+            and _loaded_profile == profile and health_check()):
         return
+    if _process is not None and _process.poll() is None:
+        stop_server()   # 档位变了：先收旧实例再起新的
 
     exe = server_exe()
     if not exe.exists():
@@ -70,6 +74,7 @@ def ensure_server(profile: str = config.DEFAULT_PROFILE) -> None:
             tail = _log_tail()
             raise RuntimeError(f"llama-server 启动失败，日志尾部：\n{tail}")
         if health_check():
+            _loaded_profile = profile
             return
         time.sleep(1.0)
     raise TimeoutError(f"llama-server 健康检查超时，日志：{_log_file}")
@@ -115,7 +120,7 @@ def chat_stream(messages: list[dict[str, str]],
 
 def stop_server() -> None:
     """停止 llama-server 子进程。"""
-    global _process
+    global _process, _loaded_profile
     if _process is not None and _process.poll() is None:
         _process.terminate()
         try:
@@ -123,3 +128,4 @@ def stop_server() -> None:
         except subprocess.TimeoutExpired:
             _process.kill()
     _process = None
+    _loaded_profile = None
