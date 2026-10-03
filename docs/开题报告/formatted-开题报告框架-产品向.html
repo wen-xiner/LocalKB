@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="docx-page-size" content="A4">
+<title>本科毕业设计开题报告框架（产品向）</title>
+<style>
+  @page { @bottom-center { content: counter(page); } }
+  @page cover { @bottom-center { content: none; } }
+  section[role="cover"] { page: cover; }
+
+  :root {
+    --fs-h1: var(--typography-fontSize-h1, 15pt);
+    --fs-h2: var(--typography-fontSize-h2, 14pt);
+    --fs-h3: var(--typography-fontSize-h3, 12pt);
+    --fs-body: var(--typography-fontSize-body, 12pt);
+    --fs-small: var(--typography-fontSize-caption, 10.5pt);
+    --fs-cover-title: 18pt;
+    --fs-cover-sub: 14pt;
+    --ff-heading: var(--typography-fontFamily-heading, "黑体", SimHei);
+    --ff-body: var(--typography-fontFamily-body, "宋体", SimSun);
+    --ff-body-mixed: "Times New Roman", "宋体", SimSun;
+    --ff-code: var(--typography-fontFamily-code, "Courier New", Consolas, monospace);
+    --lh-body: var(--typography-lineHeight-body, 1.5);
+    --fw-bold: bold;
+    --fw-normal: normal;
+    --color-text: var(--color-text, #000000);
+    --color-primary: var(--color-primary, #000000);
+    --color-muted: #555555;
+    --color-bg: var(--color-background, #ffffff);
+    --color-rule: #888888;
+    --spacing-paragraph: var(--spacing-paragraph, 0.5em);
+    --spacing-section: var(--spacing-sectionGap, 1.5em);
+    --spacing-block: 1em;
+    --spacing-block-sm: 0.4em;
+    --spacing-list: 2em;
+    --spacing-item: 0.25em;
+    --spacing-li: 0.3em;
+    --spacing-cell: 0.4em 0.6em;
+    --spacing-cell-info: 0.3em 0.8em;
+    --spacing-note: 6px 8px;
+    --page-content-width: 16.0cm;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--ff-body-mixed);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    max-width: var(--page-content-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+  }
+
+  h1, h2, h3 { font-family: var(--ff-heading); font-weight: var(--fw-bold); color: var(--color-text); }
+  h1 { font-size: var(--fs-cover-title); text-align: center; }
+  h2 { font-size: var(--fs-h1); margin-top: var(--spacing-section); margin-bottom: var(--spacing-paragraph); }
+  h3 { font-size: var(--fs-h2); margin-top: var(--spacing-block); margin-bottom: var(--spacing-paragraph); }
+  p { margin-bottom: var(--spacing-paragraph); text-indent: var(--spacing-list); text-align: left; }
+  ol, ul { margin-bottom: var(--spacing-paragraph); padding-left: var(--spacing-list); }
+  li { margin-bottom: var(--spacing-item); text-align: left; }
+  code { font-family: var(--ff-code); font-size: var(--fs-small); }
+
+  .cover-body { text-align: center; }
+  .cover-title { text-align: center; font-size: var(--fs-cover-title); font-weight: var(--fw-bold); margin-top: var(--spacing-section); margin-bottom: var(--spacing-block); }
+  .cover-subtitle { text-align: center; font-size: var(--fs-cover-sub); font-weight: var(--fw-normal); margin-bottom: var(--spacing-section); text-indent: 0; }
+  .cover-note { text-align: center; font-size: var(--fs-small); color: var(--color-muted); text-indent: 0; }
+  .cover-meta { margin-top: var(--spacing-section); }
+  .cover-info-list { border-collapse: collapse; margin: 0 auto; }
+  .cover-info-list th { padding: var(--spacing-cell-info); font-size: var(--fs-body); font-weight: var(--fw-normal); text-align: right; white-space: nowrap; border: none; }
+  .cover-info-list td { padding: var(--spacing-cell-info); font-size: var(--fs-body); vertical-align: bottom; text-align: left; border: none; }
+
+  .doc-toc { margin-top: var(--spacing-section); margin-bottom: var(--spacing-section); }
+  .toc-heading { text-align: center; font-family: var(--ff-heading); font-weight: var(--fw-bold); font-size: var(--fs-h2); text-indent: 0; margin-bottom: var(--spacing-paragraph); }
+  .toc-list { list-style: none; list-style-type: none; padding-left: 0; }
+  .toc-list li { margin-bottom: var(--spacing-li); text-indent: 0; }
+  .toc-list a { color: var(--color-primary); text-decoration: none; }
+
+  .abstract { margin-top: var(--spacing-section); margin-bottom: var(--spacing-section); padding: var(--spacing-cell); border-left: 3px solid var(--color-rule); }
+  .abstract-heading { font-family: var(--ff-heading); font-weight: var(--fw-bold); margin-bottom: var(--spacing-block-sm); text-indent: 0; }
+  .abstract-text { text-indent: 0; font-size: var(--fs-body); }
+
+  .three-line-table { border-collapse: collapse; width: 100%; margin-top: var(--spacing-block); margin-bottom: var(--spacing-block); }
+  .three-line-table caption { font-size: var(--fs-small); margin-bottom: var(--spacing-block-sm); text-align: center; color: var(--color-text); }
+  .three-line-table thead tr:first-child { border-top: 2px solid var(--color-text); }
+  .three-line-table thead tr:last-child { border-bottom: 1px solid var(--color-text); }
+  .three-line-table tbody tr:last-child { border-bottom: 2px solid var(--color-text); }
+  .three-line-table td, .three-line-table th { border-left: none; border-right: none; padding: var(--spacing-cell); text-align: left; font-size: var(--fs-small); vertical-align: top; }
+  .three-line-table th { font-weight: var(--fw-bold); background: transparent; }
+
+  .table-caption { text-align: center; text-indent: 0; font-size: var(--fs-small); margin-top: var(--spacing-block); margin-bottom: var(--spacing-block-sm); }
+
+  .references { margin-top: var(--spacing-section); }
+  .reference-list { padding-left: var(--spacing-list); }
+  .reference-item { margin-bottom: var(--spacing-li); font-size: var(--fs-small); }
+
+  .note-block { margin-bottom: var(--spacing-paragraph); }
+</style>
+</head>
+<body>
+
+<section role="cover">
+  <div class="cover-body">
+    <h1 class="cover-title">本科毕业设计开题报告框架</h1>
+    <p class="cover-subtitle">拟定题目：私有化本地知识库智能助手的设计与实现<br>——智能体式检索与模型量化的端侧工程落地</p>
+  </div>
+  <div class="cover-meta">
+    <table class="cover-info-list">
+      <thead>
+        <tr><th>项目</th><th>填写内容</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>学　　院</td><td>＿＿＿＿＿＿＿＿＿＿</td></tr>
+        <tr><td>专　　业</td><td>＿＿＿＿＿＿＿＿＿＿</td></tr>
+        <tr><td>学生姓名</td><td>＿＿＿＿＿＿＿＿＿＿</td></tr>
+        <tr><td>学　　号</td><td>＿＿＿＿＿＿＿＿＿＿</td></tr>
+        <tr><td>指导教师</td><td>＿＿＿＿＿＿＿＿＿＿</td></tr>
+        <tr><td>日　　期</td><td>＿＿＿＿年＿＿月＿＿日</td></tr>
+      </tbody>
+    </table>
+    <p class="cover-note">本文件为产品型（软件作品）开题报告写作框架，供填写与修改使用</p>
+  </div>
+</section>
+
+<section role="body" data-page-restart="1">
+
+  <nav class="doc-toc" aria-label="目录">
+    <p class="toc-heading">目录</p>
+    <ol class="toc-list">
+      <li><a href="#sec-1">一、选题基本信息</a></li>
+      <li><a href="#sec-2">二、需求分析与竞品调研</a></li>
+      <li><a href="#sec-3">三、需求规格说明</a></li>
+      <li><a href="#sec-4">四、产品功能规划与用户场景</a></li>
+      <li><a href="#sec-5">五、系统架构与技术选型</a></li>
+      <li><a href="#sec-6">六、系统实现与测试方案</a></li>
+      <li><a href="#sec-7">七、交互设计与演示方案</a></li>
+      <li><a href="#sec-8">八、产品差异化与技术创新点</a></li>
+      <li><a href="#sec-9">九、迭代计划</a></li>
+      <li><a href="#sec-10">十、交付物清单</a></li>
+      <li><a href="#sec-11">十一、技术难点与工程风险</a></li>
+      <li><a href="#sec-12">十二、合规、隐私与诚信说明</a></li>
+      <li><a href="#sec-ref">参考文献</a></li>
+    </ol>
+  </nav>
+
+  <div class="abstract" aria-label="使用说明">
+    <p class="abstract-heading">使用说明</p>
+    <p class="abstract-text">本框架按产品型毕设的评审关注点组织：需求分析与竞品调研说明为什么做这个产品，需求规格说明说明要做成什么样，产品功能规划说明给谁用、解决什么问题，系统架构与技术选型说明怎么做，实现与测试方案说明怎么保证做出来且质量可控，迭代计划说明能不能按时做完，交付物清单说明最终交什么。与论文型毕设不同，产品型的核心证据是可运行的软件、可复现的测试记录与真实用户反馈，因此第六、十章不得留空。本产品的技术内核为智能体式检索与模型量化，其方法性结论另以论文形式单独发表，本报告只引用结论作为技术支撑，不重复展开实验设计与对比方案。各章节标题与顺序可按所在学校模板调整，但需求、设计、实现、测试、交付五类信息不宜缺失。</p>
+  </div>
+
+  <main class="paper-body">
+
+    <div id="sec-1">
+      <h2>一、选题基本信息</h2>
+      <p>本部分登记题目方案、成果形式与产品定位，供开题时快速说明这个产品做什么、给谁用、以什么形式交付。产品型毕设的成果是一个可以安装并运行的软件，因此"成果形式"一栏须写清除软件本体外还需要提交哪些配套文档。</p>
+      <p class="table-caption">表 1　选题基本信息</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>项目</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>拟定题目（主选）</td><td>私有化本地知识库智能助手的设计与实现——智能体式检索与模型量化的端侧工程落地</td></tr>
+          <tr><td>拟定题目（备选）</td><td>面向隐私敏感场景的离线知识库问答系统设计与实现</td></tr>
+          <tr><td>成果形式</td><td>可运行软件（安装包）＋ 设计说明书 ＋ 源代码 ＋ 测试报告 ＋ 用户手册</td></tr>
+          <tr><td>产品形态</td><td>桌面端应用，优先 Windows 10 及以上与 macOS 12 及以上，Linux 次之</td></tr>
+          <tr><td>技术内核</td><td>智能体式检索（由模型自主判断是否检索与检索轮数）＋ 模型量化压缩（FP16 / INT8 / INT4）</td></tr>
+          <tr><td>目标用户</td><td>个人用户与小型团队，其手头资料具有一定私密性，且存在离线或弱网使用需求</td></tr>
+          <tr><td>关键词</td><td>私有化部署；知识库问答；检索增强生成；模型量化；离线推理；可溯源生成</td></tr>
+        </tbody>
+      </table>
+      <p>主选题目同时点明产品属性（私有化本地知识库智能助手）与技术内核（智能体式检索与模型量化），两层信息一次说清；备选题目更偏使用场景描述，若所在学院偏好"面向 XX 场景"的命名习惯，可直接替换。</p>
+    </div>
+
+    <div id="sec-2">
+      <h2>二、需求分析与竞品调研</h2>
+      <p>本部分回答"为什么值得做这个产品"。产品型毕设的需求不能凭想象给出，须落到具体人群与具体场景，并说明现有方案为什么不够用，否则答辩时会被追问"这个软件和已有的免费工具比，多解决了什么问题"。</p>
+
+      <h3>（一）目标用户与使用场景</h3>
+      <p>目标用户是手头积累了较多私人或内部资料、且对资料流向敏感的个人与小团队。典型场景包括：研究生在撰写文献综述时需要反复检索自己多年积攒的论文库；教师备课时需要从历年课件中定位某个知识点；小型研发团队需要查询内部规范文档，但制度上不允许将文档上传至第三方服务。这些场景有一个共同约束：资料不能离开本机，且使用地点未必有稳定网络。</p>
+
+      <h3>（二）现有方案的不足</h3>
+      <p>按"资料存放在哪里"把现有方案分为三类，逐类说明其局限，作为本产品的需求来源。表中的具体代表产品须在定稿前自行试用并填入真实名称与实测结论，不得凭印象填写。</p>
+      <p class="table-caption">表 2　现有方案对比与不足</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>方案类型</th><th>代表产品（待调研补充）</th><th>主要优点</th><th>主要不足</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>云端知识库服务</td><td>＿＿＿＿＿＿</td><td>开箱即用，模型能力强</td><td>资料须上传第三方；无网络时不可用；长期使用存在费用</td></tr>
+          <tr><td>开源本地知识库应用</td><td>＿＿＿＿＿＿</td><td>数据留在本机</td><td>依赖命令行或容器部署，非技术用户上手门槛高；界面与交互偏工程化</td></tr>
+          <tr><td>直接使用通用对话模型</td><td>＿＿＿＿＿＿</td><td>无需任何配置</td><td>无法读取私有资料；答案无出处、不可核对；易产生幻觉</td></tr>
+        </tbody>
+      </table>
+      <p>三类方案的不足可归纳为一条：要么牺牲隐私，要么牺牲易用性，要么牺牲可溯源性。本产品的定位是在不牺牲隐私的前提下，把易用性与可溯源性同时补齐。</p>
+
+      <h3>（三）需求结论</h3>
+      <p>由上述分析得出三条核心需求，它们同时构成本产品后续的差异化卖点：第一，全程离线可运行，断网状态下功能不降级；第二，数据不出本机，软件不产生任何外部网络请求；第三，答案可溯源，每一条结论都能定位到原始文档的具体片段，资料不足时明确拒答而不是编造。</p>
+    </div>
+
+    <div id="sec-3">
+      <h2>三、需求规格说明</h2>
+      <p>本部分把第二章的需求结论转成可验收的条目。写法要求是每一条都能在测试阶段被判定"通过"或"不通过"，因此描述中避免使用"较快""基本可用"一类无法判定的措辞，凡涉及数值的指标在定稿前须经实机实测后填入具体阈值。</p>
+
+      <h3>（一）功能需求</h3>
+      <p>功能需求按"文档进来、问题出去"的主流程排列，编号供第六、十章交叉引用。</p>
+      <p class="table-caption">表 3　功能需求清单</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>编号</th><th>功能</th><th>说明</th><th>优先级</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>FR-01</td><td>文档导入</td><td>支持 PDF、Word、Markdown、纯文本，可拖拽批量导入</td><td>必须</td></tr>
+          <tr><td>FR-02</td><td>文档解析与切分</td><td>抽取正文并切分为语义完整的片段，保留来源与页码信息</td><td>必须</td></tr>
+          <tr><td>FR-03</td><td>本地索引构建</td><td>在本机构建向量索引，新增文档支持增量更新，无需全量重建</td><td>必须</td></tr>
+          <tr><td>FR-04</td><td>智能问答</td><td>自然语言提问，返回附带引用来源的答案</td><td>必须</td></tr>
+          <tr><td>FR-05</td><td>检索轨迹展示</td><td>展示命中片段、实际被引用的片段、检索轮数与各步耗时</td><td>必须</td></tr>
+          <tr><td>FR-06</td><td>拒答机制</td><td>知识库内无支撑依据时明确拒答，并说明原因</td><td>必须</td></tr>
+          <tr><td>FR-07</td><td>模型档位切换</td><td>FP16、INT8、INT4 三档可切换，切换后无需重启</td><td>应该</td></tr>
+          <tr><td>FR-08</td><td>检索策略切换</td><td>不检索、固定条数检索、智能体式检索三档可切换</td><td>应该</td></tr>
+          <tr><td>FR-09</td><td>运行读数展示</td><td>实时显示端到端时延、峰值内存、本轮是否触发检索</td><td>应该</td></tr>
+          <tr><td>FR-10</td><td>知识库管理</td><td>支持多知识库创建、切换、删除与索引重建</td><td>应该</td></tr>
+          <tr><td>FR-11</td><td>问答记录导出</td><td>导出为 Markdown 或纯文本，含引用来源</td><td>可以</td></tr>
+          <tr><td>FR-12</td><td>一键安装与首次引导</td><td>提供安装包，首次启动给出导入与提问的引导流程</td><td>必须</td></tr>
+        </tbody>
+      </table>
+
+      <h3>（二）非功能需求</h3>
+      <p>非功能需求是产品型毕设区别于课程作业的关键，也是答辩时最容易被追问的部分。其中时延与内存两项须在目标硬件上实测后填写具体阈值，不建议直接照搬通用指标。</p>
+      <p class="table-caption">表 4　非功能需求清单</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>编号</th><th>属性</th><th>要求</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>NR-01</td><td>离线可用</td><td>断网状态下已完成索引的知识库可正常问答，功能不降级</td></tr>
+          <tr><td>NR-02</td><td>数据不出本机</td><td>软件运行期间不产生外部网络请求，可断网验证</td></tr>
+          <tr><td>NR-03</td><td>响应时延</td><td>INT4 档下首个字符输出时延不超过＿＿秒（待实测填写）</td></tr>
+          <tr><td>NR-04</td><td>内存占用</td><td>峰值内存不超过＿＿GB，且不高于本机可用内存的 60%（待实测填写）</td></tr>
+          <tr><td>NR-05</td><td>跨平台</td><td>Windows 10 及以上、macOS 12 及以上可正常运行</td></tr>
+          <tr><td>NR-06</td><td>易用性</td><td>无技术背景的用户可在 10 分钟内独立完成首次导入与提问</td></tr>
+          <tr><td>NR-07</td><td>可维护性</td><td>索引层与推理层解耦，更换嵌入模型或生成模型不需改动上层界面</td></tr>
+        </tbody>
+      </table>
+
+      <h3>（三）需求优先级</h3>
+      <p>按必须做、应该做、可以做、本期不做四档划分，用于第九章迭代计划中确定各阶段范围。"本期不做"一栏尤其重要，它把产品边界写死，避免开发过程中不断加功能导致无法按时完成。</p>
+      <p class="table-caption">表 5　需求优先级划分</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>档次</th><th>对应编号</th><th>含义</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>必须做</td><td>FR-01 至 FR-06、FR-12</td><td>缺少任何一项产品不成立，构成最小可用版本</td></tr>
+          <tr><td>应该做</td><td>FR-07 至 FR-10</td><td>构成产品差异化，时间允许则全部完成</td></tr>
+          <tr><td>可以做</td><td>FR-11</td><td>锦上添花，时间紧张时舍弃</td></tr>
+          <tr><td>本期不做</td><td>——</td><td>多人协作、云端同步、移动端、用户账号体系</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="sec-4">
+      <h2>四、产品功能规划与用户场景</h2>
+      <p>本部分把需求条目组织成产品视角下的功能模块，并用用户故事说明每个模块到底为谁解决什么问题。与论文型毕设的"研究内容"不同，这里描述的是用户能感知到的功能，而不是内部算法步骤。</p>
+
+      <h3>（一）功能模块划分</h3>
+      <p>将十二项功能需求归入六个模块，模块之间通过明确定义的接口通信，便于分工实现与单独测试。</p>
+      <p class="table-caption">表 6　功能模块划分</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>模块</th><th>包含功能</th><th>职责说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>文档管理模块</td><td>FR-01、FR-02、FR-10</td><td>负责文档的导入、解析、切分、索引与知识库的增删管理</td></tr>
+          <tr><td>问答交互模块</td><td>FR-04、FR-11</td><td>接收用户提问，组织上下文并输出答案，管理会话与导出</td></tr>
+          <tr><td>检索决策模块</td><td>FR-08</td><td>执行智能体式检索流程，判断是否需要检索、检索几轮、证据是否充分</td></tr>
+          <tr><td>推理执行模块</td><td>FR-07</td><td>加载量化模型，执行推理，负责档位切换与资源释放</td></tr>
+          <tr><td>可视化模块</td><td>FR-05、FR-09</td><td>渲染检索轨迹、引用高亮与运行读数</td></tr>
+          <tr><td>系统模块</td><td>FR-03、FR-06、FR-12</td><td>索引构建与拒答判据、安装打包、首次引导、日志与配置</td></tr>
+        </tbody>
+      </table>
+
+      <h3>（二）用户故事</h3>
+      <p>用用户故事把功能还原成使用动机，便于在用户试用测试中设计任务与问卷。</p>
+      <p class="table-caption">表 7　典型用户故事</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>编号</th><th>角色</th><th>用户故事</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>US-01</td><td>研究生</td><td>我想把积攒的论文一次性拖进去直接提问，这样不必逐个打开文件翻找</td></tr>
+          <tr><td>US-02</td><td>教师</td><td>我想让答案直接给出出处，这样我才敢把结论写进课件</td></tr>
+          <tr><td>US-03</td><td>小团队成员</td><td>我想确认软件确实不联网，这样我才敢把内部资料放进去</td></tr>
+          <tr><td>US-04</td><td>普通用户</td><td>我想装完就能用，不想学命令行和容器配置</td></tr>
+          <tr><td>US-05</td><td>答辩评委</td><td>我想看到同一个问题在不同配置下的差异，以便判断技术含量</td></tr>
+        </tbody>
+      </table>
+
+      <h3>（三）核心使用流程</h3>
+      <p>首次使用流程共五步：安装软件并启动、创建知识库并导入文档、等待索引构建完成、输入第一个问题、查看答案与引用来源。日常使用流程共三步：选择知识库、提问、核对引用。两条流程都必须在一级界面内可完成，不出现需要命令行操作的环节，这是 NR-06 的具体落地要求。</p>
+
+      <h3>（四）最小可用版本边界</h3>
+      <p>最小可用版本只包含"导入文档、建立索引、提问并给出可溯源答案、资料不足时拒答"这一条闭环，界面可以简陋，但不允许出现走不通的环节。档位切换、轨迹可视化、多知识库管理等放在后续迭代。这条边界的意义在于：先保证有一个能跑通、能演示的完整产品，再往上加功能，而不是各模块平行开发到最后才发现拼不起来。</p>
+    </div>
+
+    <div id="sec-5">
+      <h2>五、系统架构与技术选型</h2>
+      <p>本部分说明系统怎么搭。产品型毕设的架构描述要落到"哪些进程、哪些模块、通过什么方式通信"，因为评委常会追问离线是如何保证的——答案只能是架构层面的，比如所有推理与检索都在本机进程内完成，不存在指向外部服务的调用。</p>
+
+      <h3>（一）总体架构</h3>
+      <p>系统自上而下分为五层。表现层是用户直接操作的桌面界面，负责交互与可视化；应用服务层负责问答调度、检索决策与会话管理；检索层负责向量检索、关键词检索与重排；推理层负责量化模型的加载与推理执行；数据层负责本地文档库、向量索引与配置文件的持久化。各层之间的调用都发生在本机，表现层与后端通过本机回环地址通信，检索层与推理层在进程内直接调用。这一结构是 NR-01 与 NR-02 的实现基础。</p>
+      <p class="note-block">（此处需插入系统总体架构图，建议答辩前用绘图工具补全，图中须标明各层边界以及"无外网调用"这一约束。）</p>
+
+      <h3>（二）技术选型</h3>
+      <p>下表给出建议选型与备选方案。选型须结合实机实测结果最终确定，尤其是模型与量化工具链部分，应以目标硬件上的实际运行表现作为依据，不能仅凭公开资料判断。</p>
+      <p class="table-caption">表 8　技术选型与备选方案</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>层次</th><th>建议选型</th><th>备选方案</th><th>选择理由</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>桌面壳</td><td>与 Vue 生态结合的桌面应用框架</td><td>轻量 Rust 系桌面框架；或纯 Python 界面库</td><td>前端可复用熟悉的 Vue 技术栈，后端以本地子进程方式运行</td></tr>
+          <tr><td>前端界面</td><td>Vue 3 ＋ Vite ＋ TypeScript</td><td>React</td><td>组件化便于实现轨迹与读数的实时更新</td></tr>
+          <tr><td>后端服务</td><td>Python ＋ FastAPI</td><td>Go</td><td>与文档解析、检索、推理的 Python 生态一致，避免跨语言调用开销</td></tr>
+          <tr><td>文档解析</td><td>PDF 与 Word 解析库组合</td><td>统一走文本转换工具</td><td>需要保留页码与来源信息以供溯源</td></tr>
+          <tr><td>向量索引</td><td>嵌入式向量库（本地文件存储）</td><td>内存索引 ＋ 定期落盘</td><td>无需独立服务进程，符合离线与易安装要求</td></tr>
+          <tr><td>嵌入模型</td><td>本地小参数量中文嵌入模型</td><td>通用多语言嵌入模型</td><td>以本机可用算力为约束，具体型号待实测选定</td></tr>
+          <tr><td>生成模型</td><td>本地中小参数量指令模型</td><td>更大参数量模型（牺牲速度）</td><td>参数量须与目标机器的内存与显存预算匹配</td></tr>
+          <tr><td>量化与推理</td><td>INT4 量化 ＋ 本地推理后端</td><td>INT8 或 FP16 精度优先方案</td><td>直接决定端侧可运行性与时延，是本产品的技术支撑点</td></tr>
+          <tr><td>打包分发</td><td>桌面应用打包工具 ＋ 后端可执行文件打包</td><td>提供脚本式安装</td><td>目标是双击安装即可使用，满足 NR-06</td></tr>
+        </tbody>
+      </table>
+
+      <h3>（三）关键技术说明</h3>
+      <p>本产品的技术含量集中在三处。第一处是智能体式检索流程：由模型先判断当前问题是否需要检索、需要检索几轮，检索后再自检证据是否充分，不充分则追加检索或转入拒答；相比固定条数检索，它能在简单问题上省掉检索开销，在复杂问题上自动增加轮数。第二处是量化推理与档位切换：同一模型以不同精度加载，用户可在质量与速度之间取舍，切换过程无需重启，这既是产品功能也是论文结论的直接呈现。第三处是引用溯源：答案生成时强制标注所依据的片段，界面据此高亮原文，使答案可被核对，这是应对幻觉问题的产品级手段。</p>
+    </div>
+
+    <div id="sec-6">
+      <h2>六、系统实现与测试方案</h2>
+      <p>本部分是产品型毕设相对论文型最大的结构差异所在。论文型用"实验设计与评估指标"证明方法有效，产品型则要用"测试方案"证明软件可用且质量可控。测试结果必须可复现，即写明操作步骤、运行环境与判定标准，避免只给一句"测试通过"。</p>
+
+      <h3>（一）实现计划</h3>
+      <p>实现顺序按依赖关系推进：先完成数据层的文档解析与索引构建，再打通检索层与推理层的最小调用链，然后实现应用服务层的问答调度，最后完成表现层界面与可视化。用户界面先做功能版，交互细节在迭代二中打磨。这一顺序保证每个阶段结束时都有可验证的产物，而不是等到最后才第一次联调。</p>
+
+      <h3>（二）功能测试</h3>
+      <p>功能测试用例与第三章的功能需求编号一一对应，确保每条需求都有对应的验证记录。</p>
+      <p class="table-caption">表 9　功能测试用例（示例，定稿前补全至覆盖全部功能需求）</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>用例编号</th><th>对应需求</th><th>操作步骤</th><th>预期结果</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>TC-01</td><td>FR-01</td><td>拖入若干不同格式文档</td><td>均成功导入，格式正确的文档全部出现在文档列表中</td></tr>
+          <tr><td>TC-02</td><td>FR-02</td><td>导入一篇含多级标题的长文档</td><td>切分后片段保留章节与页码信息，无跨章节错误合并</td></tr>
+          <tr><td>TC-03</td><td>FR-04</td><td>就文档内容提一个明确问题</td><td>答案正确且附有引用来源</td></tr>
+          <tr><td>TC-04</td><td>FR-05</td><td>观察检索轨迹区</td><td>命中片段与实际引用片段区分显示，各步耗时可见</td></tr>
+          <tr><td>TC-05</td><td>FR-06</td><td>提问一个知识库内不存在的内容</td><td>系统拒答并说明缺乏依据，不编造答案</td></tr>
+          <tr><td>TC-06</td><td>FR-07</td><td>在问答过程中切换量化档位</td><td>切换成功且无需重启，答案与读数随之变化</td></tr>
+          <tr><td>TC-07</td><td>FR-12</td><td>在干净系统上安装并首次启动</td><td>安装成功，首次启动出现导入与提问引导</td></tr>
+        </tbody>
+      </table>
+
+      <h3>（三）性能与兼容性测试</h3>
+      <p>性能测试在明确写出的硬件配置上执行，至少覆盖一台无独立显卡的普通笔记本与一台带独立显卡的机器，用以说明产品在不同算力下的可用档位。兼容性测试覆盖 Windows 与 macOS 的若干版本组合。所有测试须记录时间、环境与原始数据，作为测试报告的附件。</p>
+      <p class="table-caption">表 10　性能与兼容性测试项</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>测试项</th><th>测量内容</th><th>记录方式</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>首字时延</td><td>不同量化档位下从提问到首字输出的时间</td><td>每档重复若干次取中位数</td></tr>
+          <tr><td>端到端时延</td><td>从提问到答案完成的时间</td><td>按问题类型分类统计</td></tr>
+          <tr><td>峰值内存</td><td>问答过程中的最高内存占用</td><td>系统监控工具记录</td></tr>
+          <tr><td>索引构建耗时</td><td>不同规模文档集的首次索引与增量索引耗时</td><td>按文档数量分档记录</td></tr>
+          <tr><td>系统兼容性</td><td>不同操作系统版本下的安装与运行情况</td><td>列出测试矩阵与结果</td></tr>
+          <tr><td>稳定性</td><td>连续问答下的崩溃与内存泄漏情况</td><td>长时间运行观察记录</td></tr>
+        </tbody>
+      </table>
+
+      <h3>（四）用户试用测试</h3>
+      <p>产品型毕设的核心证据之一是真实用户反馈，建议在迭代三阶段招募五至十名目标用户（同学与教师均可）进行试用。测试方法是给出三个固定任务——导入一批文档、就文档内容提问、核对答案出处——记录完成率、耗时与卡点，并在试用后以简短问卷收集主观评价。试用过程须真实留痕（截图、问卷原件），不得以自述代替。</p>
+
+      <h3>（五）验收标准</h3>
+      <p>产品是否达到交付要求，以本章列出的可量化标准判定，全部满足即视为通过。</p>
+      <p class="table-caption">表 11　验收标准</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>维度</th><th>标准</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>功能完整性</td><td>必须做与应该做的功能需求全部通过测试用例</td></tr>
+          <tr><td>离线可用性</td><td>断开网络后已完成索引的知识库可正常问答</td></tr>
+          <tr><td>性能</td><td>达到 NR-03、NR-04 中实测确定的阈值</td></tr>
+          <tr><td>易用性</td><td>参与试用的非技术用户中，多数可在 10 分钟内独立完成首次问答</td></tr>
+          <tr><td>稳定性</td><td>连续运行数小时问答不出现崩溃与明显内存增长</td></tr>
+          <tr><td>文档完整性</td><td>第十章交付物清单中的各项均已提交</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="sec-7">
+      <h2>七、交互设计与演示方案</h2>
+      <p>本部分说明产品长什么样、答辩时怎么演示。产品型毕设的现场演示权重高于论文型，因为"能跑"本身就是最重要的证据；但演示必须服务于说明问题，而不是只放一段视频。</p>
+
+      <h3>（一）界面布局</h3>
+      <p>主界面分为四个区域：左侧为知识库与文档列表，用于选择当前问答的知识范围；中部为对话区，展示提问与答案；右侧为检索轨迹区，逐条显示命中的文档片段，并高亮答案实际引用的片段；底部为运行读数条，显示端到端时延、峰值内存、本轮是否触发检索、检索轮数与是否触发拒答。四个区域同屏可见，目的是让用户在一屏之内既看到答案，也看到答案是怎么来的。</p>
+
+      <h3>（二）检索轨迹可视化</h3>
+      <p>把一次问答的决策过程渲染为横向步骤条：理解问题、判断是否需要检索、生成检索式、命中片段、自检证据是否充分、追加检索或拒答、生成带引用的答案。每一步标注耗时，证据不足时步骤条上直接分叉显示"追加检索"或"拒答"分支。这是演示的核心环节，它把"模型在中间做了什么"由一句说明变成一个可观察的过程。</p>
+
+      <h3>（三）档位切换交互</h3>
+      <p>界面上提供两个开关，答辩现场可直接切换。一是检索策略档位，取值为不检索、固定条数检索、智能体式检索，用于展示检索是否必要、检索几次由模型自行决定；二是量化档位，取值为 FP16、INT8、INT4，用于展示质量与速度的取舍。同一个问题在不同档位下的答案、引用与底部读数会同时变化，评委可在数秒内看到差异。这两组开关是把技术内核转化为可感知效果的关键设计。</p>
+
+      <h3>（四）安装与首次使用引导</h3>
+      <p>交付的安装包在干净系统上双击安装即可运行，首次启动以向导方式引导用户完成指定资料目录、导入文档与发出第一个问题。这一环节直接对应 NR-06 与 US-04，须录制安装演示作为交付物之一。</p>
+
+      <h3>（五）答辩演示脚本</h3>
+      <p>建议按以下顺序演示，全程控制在数分钟以内：第一步，提一个知识库内可回答的问题，展示引用溯源与命中片段高亮；第二步，提一个知识库外的问题，展示拒答分支，随后说明这一行为的意义；第三步，将量化档位由 INT8 切换到 INT4，就同一问题再问一次，对比答案差异与底部时延、内存读数；第四步，断开网络后重新提问，展示系统仍可正常运行；第五步，展示安装向导与在另一台机器上的安装过程，说明产品可交付而非仅在本机可跑。</p>
+
+      <h3>（六）演示回退方案</h3>
+      <p>答辩现场存在环境不可控的风险，须提前准备两段离线录屏作为回退：一段是完整的标准演示流程，一段是关键功能（离线问答、档位切换、拒答）的特写。同时准备一台已配置好的备用设备。演示方案的目标是即使现场设备出现异常，展示流程也不断档。</p>
+    </div>
+
+    <div id="sec-8">
+      <h2>八、产品差异化与技术创新点</h2>
+      <p>本部分回答"这个产品凭什么算毕业设计而不是普通课程作业"。产品型毕设最常受到的质疑是技术含量不足，因此需要把差异化与技术创新分开写：差异化是对照竞品的，创新点是相对已有方法的，两者不能混为一谈。</p>
+
+      <h3>（一）产品差异化</h3>
+      <p>对照第二章的竞品调研，本产品的差异化集中在三点。第一，完全离线且数据不出本机，这一点可在答辩现场通过断网操作直接验证，是云端方案无法提供的。第二，答案可溯源，引用片段在界面中高亮显示，用户可自行核对，避免黑箱式输出。第三，质量与效率的取舍对用户可见，检索策略与量化档位均可现场切换，用户能直观看到不同配置的代价，这一交互在同类本地知识库工具中并不常见。</p>
+
+      <h3>（二）技术创新点</h3>
+      <p>技术创新点以智能体式检索与模型量化的联合配置为核心：一是在端侧资源约束下对智能体式检索流程做适配，使检索轮数的决策与本地算力相匹配；二是给出量化与检索的联合配置策略，即在给定硬件预算下如何选择量化档位与检索档位，使端到端质量与效率取得平衡。这两点的方法性结论已由本人独立完成的论文工作给出，本产品负责将其工程落地并验证在真实使用场景下的可行性。</p>
+      <p>需要说明的是，产品侧的创新体现为工程实现与交互设计，方法侧的创新体现在论文中。开题与答辩时应明确区分两者的工作边界，引用论文结论时如实标注，避免把论文的实验结论表述为本产品的测试结果。</p>
+    </div>
+
+    <div id="sec-9">
+      <h2>九、迭代计划</h2>
+      <p>本部分给出分阶段推进的安排。产品型毕设不建议一次性开发全部功能，而应采用迭代方式：每一阶段结束时都有一个可运行、可演示的版本，这样即使后期时间紧张，也已有一个完整的产品可交付。具体起止时间须按所在学校的毕设日程填入。</p>
+      <p class="table-caption">表 12　迭代计划</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>阶段</th><th>起止时间</th><th>目标</th><th>阶段交付</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>准备与选型</td><td>＿＿ 至 ＿＿</td><td>完成技术选型与模型实测，确定目标硬件上的可用档位</td><td>选型报告、环境搭建记录</td></tr>
+          <tr><td>第一阶段：最小可用版本</td><td>＿＿ 至 ＿＿</td><td>打通导入、索引、问答、溯源、拒答闭环</td><td>可运行的功能版软件</td></tr>
+          <tr><td>第二阶段：差异化功能</td><td>＿＿ 至 ＿＿</td><td>完成档位切换、轨迹可视化、读数展示、多知识库管理</td><td>可演示的完整版软件</td></tr>
+          <tr><td>第三阶段：打磨与交付</td><td>＿＿ 至 ＿＿</td><td>性能优化、打包分发、跨平台适配</td><td>安装包、用户手册</td></tr>
+          <tr><td>第四阶段：测试与材料</td><td>＿＿ 至 ＿＿</td><td>完成功能、性能、用户试用测试并整理交付文档</td><td>测试报告、演示录屏、毕业设计报告</td></tr>
+          <tr><td>第五阶段：答辩准备</td><td>＿＿ 至 ＿＿</td><td>准备演示脚本、回退方案与答辩材料</td><td>答辩演示环境与讲稿</td></tr>
+        </tbody>
+      </table>
+      <p>各阶段之间预留缓冲时间，用于应对选型返工、性能不达预期等常见情况。若时间不足，优先保证第二阶段的差异化功能完成，因为它们直接支撑答辩演示。</p>
+    </div>
+
+    <div id="sec-10">
+      <h2>十、交付物清单</h2>
+      <p>本部分明确最终提交什么。产品型毕设的交付物不止一个软件，缺少测试报告或用户手册会直接影响完成度评分，因此清单须在开题时即确定并据此安排进度。</p>
+      <p class="table-caption">表 13　交付物清单</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>编号</th><th>交付物</th><th>形式</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>D-01</td><td>可运行软件</td><td>安装包</td><td>Windows 与 macOS 安装包，在干净系统上可安装运行</td></tr>
+          <tr><td>D-02</td><td>源代码</td><td>代码仓库</td><td>含构建说明与依赖清单，可复现打包</td></tr>
+          <tr><td>D-03</td><td>设计说明书</td><td>文档</td><td>即毕业设计报告主体，含需求、设计、实现与测试结论</td></tr>
+          <tr><td>D-04</td><td>测试报告</td><td>文档</td><td>功能、性能、兼容性与用户试用测试的原始记录与结论</td></tr>
+          <tr><td>D-05</td><td>用户手册</td><td>文档</td><td>面向非技术用户，含安装、导入、提问与常见问题</td></tr>
+          <tr><td>D-06</td><td>演示录屏</td><td>视频</td><td>标准演示流程与关键功能特写，兼作答辩回退方案</td></tr>
+          <tr><td>D-07</td><td>研究论文</td><td>论文</td><td>智能体式检索与模型量化的方法性研究，独立投稿，作为本产品的技术支撑</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="sec-11">
+      <h2>十一、技术难点与工程风险</h2>
+      <p>本部分把可预见的问题提前写明并给出对策，作用是向评审说明这些困难已被识别且各有应对，而不是等到答辩时才被指出。产品型毕设的主要风险来自工程侧，与研究型的技术风险有所不同。</p>
+
+      <h3>（一）技术难点</h3>
+      <p class="table-caption">表 14　主要技术难点与应对思路</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>难点</th><th>具体表现</th><th>应对思路</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>端侧推理性能不足</td><td>无独立显卡的机器上大模型响应过慢</td><td>以量化档位分级适配，低配机器默认使用低精度档位，并明确标注可用档位</td></tr>
+          <tr><td>量化后质量衰减</td><td>低精度档位下答案质量下降明显</td><td>由论文工作给出质量与效率的实测曲线，产品据此设定默认档位与提示</td></tr>
+          <tr><td>长文档解析与切分质量</td><td>切分不当导致语义断裂、检索命中错误片段</td><td>保留章节结构信息辅助切分，并针对典型文档类型做专门测试</td></tr>
+          <tr><td>检索召回不足</td><td>答案所需片段未被命中，导致误拒答</td><td>结合向量与关键词检索并加重排，调整拒答判据的松紧程度</td></tr>
+          <tr><td>跨平台打包</td><td>不同系统下依赖与模型文件路径差异导致失败</td><td>统一资源管理方式，在干净系统上做安装测试</td></tr>
+        </tbody>
+      </table>
+
+      <h3>（二）工程风险</h3>
+      <p class="table-caption">表 15　工程风险与对策</p>
+      <table class="three-line-table">
+        <thead>
+          <tr><th>风险</th><th>可能影响</th><th>对策</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>范围失控</td><td>功能不断追加导致无法完成</td><td>以第三章的需求优先级与第四章的最小可用版本边界为准，超出范围的需求列入以后版本</td></tr>
+          <tr><td>进度延误</td><td>测试与文档时间被压缩</td><td>各迭代阶段预留缓冲，文档随开发同步撰写而非最后补写</td></tr>
+          <tr><td>技术含量受质疑</td><td>答辩时被评价为仅为界面组装</td><td>以论文方法结论为支撑，并在演示中呈现档位对比等可观察的技术效果</td></tr>
+          <tr><td>现场演示失败</td><td>演示中断影响评价</td><td>准备离线录屏与备用设备，见第七章第六节</td></tr>
+          <tr><td>第三方组件许可</td><td>交付物存在合规瑕疵</td><td>逐项登记所用开源组件及其许可协议，避免使用许可不明或限制商用的组件</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="sec-12">
+      <h2>十二、合规、隐私与诚信说明</h2>
+      <p>本部分就该产品涉及的数据、隐私与学术规范作出说明。产品型毕设涉及真实用户与真实数据的使用，这类说明不是形式要求，而是产品设计的一部分，其内容须与第三章的非功能需求相互对应。</p>
+      <p>数据合规方面，产品开发与测试仅使用本人自有资料、公开许可数据集或经授权的文档，不采集他人隐私信息，不使用来源不明的语料。隐私设计方面，所有文档、索引与问答记录均存储在本机指定目录，软件不包含上传功能，第五章的架构设计中已从结构上排除了外部服务调用；这一约束可通过断网运行与网络请求监测两种方式验证。开源合规方面，所用组件及其许可协议在交付物中逐项登记。学术诚信方面，本产品由本人独立设计与实现，论文结论在引用时如实标注来源与作者，测试数据、用户试用记录与性能指标均据实记录，不虚构、不夸大，未完成的条目明确标注为待完成而非已解决。</p>
+    </div>
+
+    <div id="sec-ref" class="references">
+      <h2>参考文献</h2>
+      <p>本框架不预先填写文献条目，以避免使用未经本人核对的资料。定稿前须完成以下工作：补充检索增强生成与知识库问答方向的综述类文献，说明产品所依据的技术路线；补充模型量化与端侧推理方向的文献，说明量化策略的依据；补充同类系统的公开资料或论文，用于第二章的竞品调研对比。所有条目按所在学校要求的格式著录，正文中出现的每一处论断均须对应到具体文献。</p>
+      <ol class="reference-list">
+        <li class="reference-item">（待补全）检索增强生成方向综述文献</li>
+        <li class="reference-item">（待补全）智能体式检索与检索决策方法文献</li>
+        <li class="reference-item">（待补全）模型量化与端侧推理方法文献</li>
+        <li class="reference-item">（待补全）同类本地知识库系统的公开资料</li>
+      </ol>
+    </div>
+
+  </main>
+</section>
+
+</body>
+</html>

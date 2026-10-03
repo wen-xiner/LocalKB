@@ -1,0 +1,36 @@
+# ---- 依赖 ----
+node_modules/
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+
+# ---- 构建产物 ----
+dist/
+build/
+target/
+out/
+
+# ---- 模型权重（GB 级，不进仓库）----
+models/
+
+# ---- 本地语料与索引（私有数据，不进仓库）----
+data/
+
+# ---- WorkBuddy 工作区记忆 ----
+.workbuddy/
+
+# ---- 文档排版流水线中间产物 ----
+_pipeline/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- 临时 ----
+*.log
+*.tmp
+~$*
